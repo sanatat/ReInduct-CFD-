@@ -1,0 +1,93 @@
+{
+  "scenarios": [
+    {
+      "scenario": "base",
+      "mean_LCO_conversion": 2.6981590515839926e-05,
+      "H_radical_mean_mol_m3_pore": 0.044068902334819776,
+      "max_element_balance_mol_m2": 5.3577910337498924e-14,
+      "relative_energy_ledger_error": 1.7246350875517656e-16,
+      "max_pressure_closure_relative": 2.361917316846211e-10
+    },
+    {
+      "scenario": "grid12",
+      "mean_LCO_conversion": 2.6981590670938083e-05,
+      "H_radical_mean_mol_m3_pore": 0.04410553443288753,
+      "max_element_balance_mol_m2": 1.7610045366378557e-14,
+      "relative_energy_ledger_error": 1.0157491216206923e-16,
+      "max_pressure_closure_relative": 9.073233084690129e-11
+    },
+    {
+      "scenario": "grid24",
+      "mean_LCO_conversion": 2.6981590730779104e-05,
+      "H_radical_mean_mol_m3_pore": 0.04404169747222721,
+      "max_element_balance_mol_m2": 9.191367285332763e-14,
+      "relative_energy_ledger_error": 4.2340700227557286e-17,
+      "max_pressure_closure_relative": 3.9176395290645513e-10
+    },
+    {
+      "scenario": "dt0.05",
+      "mean_LCO_conversion": 2.6980324500547326e-05,
+      "H_radical_mean_mol_m3_pore": 0.04458890148737657,
+      "max_element_balance_mol_m2": 3.544473742289611e-14,
+      "relative_energy_ledger_error": 1.7310503451620016e-16,
+      "max_pressure_closure_relative": 5.146090996998552e-10
+    },
+    {
+      "scenario": "dt0.0125",
+      "mean_LCO_conversion": 2.6982223440441544e-05,
+      "H_radical_mean_mol_m3_pore": 0.04373120895309419,
+      "max_element_balance_mol_m2": 2.410354901782874e-14,
+      "relative_energy_ledger_error": 2.228232809955288e-16,
+      "max_pressure_closure_relative": 1.0795150572705214e-10
+    },
+    {
+      "scenario": "no_em",
+      "mean_LCO_conversion": 2.6831006316396788e-05,
+      "H_radical_mean_mol_m3_pore": 0.04405884378962658,
+      "max_element_balance_mol_m2": 6.876779961445534e-14,
+      "relative_energy_ledger_error": 1.3739343381922001e-17,
+      "max_pressure_closure_relative": 2.9313224193328275e-10
+    },
+    {
+      "scenario": "no_radicals",
+      "mean_LCO_conversion": 2.6981526624281216e-05,
+      "H_radical_mean_mol_m3_pore": 0.0,
+      "max_element_balance_mol_m2": 3.0095717584721626e-14,
+      "relative_energy_ledger_error": 2.887935134207885e-16,
+      "max_pressure_closure_relative": 2.577346898536971e-10
+    },
+    {
+      "scenario": "H2_1pct",
+      "mean_LCO_conversion": 2.6981690402383407e-05,
+      "H_radical_mean_mol_m3_pore": 0.014693764191539714,
+      "max_element_balance_mol_m2": 1.8974405380234316e-14,
+      "relative_energy_ledger_error": 6.222799881928875e-17,
+      "max_pressure_closure_relative": 1.8660592266733057e-10
+    },
+    {
+      "scenario": "H2_6pct",
+      "mean_LCO_conversion": 2.698151110136493e-05,
+      "H_radical_mean_mol_m3_pore": 0.06893532148147477,
+      "max_element_balance_mol_m2": 3.124345400451478e-14,
+      "relative_energy_ledger_error": 2.7328997419605164e-16,
+      "max_pressure_closure_relative": 2.658988223128056e-10
+    },
+    {
+      "scenario": "low_carbon",
+      "mean_LCO_conversion": 2.6981590515839926e-05,
+      "H_radical_mean_mol_m3_pore": 0.044068902334819776,
+      "max_element_balance_mol_m2": 1.7476363238511095e-14,
+      "relative_energy_ledger_error": 1.7246350875517656e-16,
+      "max_pressure_closure_relative": 2.361917316846211e-10
+    },
+    {
+      "scenario": "high_carbon",
+      "mean_LCO_conversion": 2.6981590515839926e-05,
+      "H_radical_mean_mol_m3_pore": 0.044068902334819776,
+      "max_element_balance_mol_m2": 2.5156200907094917e-14,
+      "relative_energy_ledger_error": 1.7246350875517656e-16,
+      "max_pressure_closure_relative": 2.361917316846211e-10
+    }
+  ],
+  "important": "Synthetic numerical sensitivity; no independent experimental validation."
+}

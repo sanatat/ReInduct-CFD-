@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# OpenFOAM.com v2606 executable verification, intentionally FAIL-CLOSED.
+# No success marker is produced without build, mesh, mapping, solver, postchecks.
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+EVIDENCE="$ROOT/v11/results/openfoam_runtime"
+WORK="$EVIDENCE/work"
+mkdir -p "$EVIDENCE"
+rm -f "$EVIDENCE/VERIFIED.txt"
+for exe in wmake blockMesh checkMesh; do
+  if ! command -v "$exe" >/dev/null 2>&1; then
+    printf 'OpenFOAM v2606 not verified: %s missing\n' "$exe" | tee "$EVIDENCE/BLOCKED.txt" >&2
+    exit 2
+  fi
+done
+if [[ "${WM_PROJECT_VERSION:-}" != "v2606" && "${WM_PROJECT_VERSION:-}" != "2606" ]]; then
+  echo "OpenFOAM v2606 expected; actual ${WM_PROJECT_VERSION:-unset}" | tee "$EVIDENCE/BLOCKED.txt" >&2
+  exit 2
+fi
+rm -f "$EVIDENCE/BLOCKED.txt"
+rm -rf "$WORK"
+mkdir -p "$WORK"
+cp -a "$ROOT/v11/openfoam/case" "$ROOT/v11/openfoam/solver" "$ROOT/v11/openfoam/cellGeometry" "$WORK/"
+printf 'OpenFOAM project %s\n' "$WM_PROJECT_VERSION" > "$EVIDENCE/environment.txt"
+(cd "$WORK/solver" && wmake) 2>&1 | tee "$EVIDENCE/log.wmake_solver"
+(cd "$WORK/cellGeometry" && wmake) 2>&1 | tee "$EVIDENCE/log.wmake_geometry"
+(cd "$WORK/case" && blockMesh) 2>&1 | tee "$EVIDENCE/log.blockMesh"
+(cd "$WORK/case" && checkMesh -allGeometry -allTopology) 2>&1 | tee "$EVIDENCE/log.checkMesh"
+(cd "$WORK/case" && exportCellGeometry) 2>&1 | tee "$EVIDENCE/log.geometry"
+(cd "$ROOT" && python3 -m v7.mapping --cell-csv "$WORK/case/constant/cell_geometry.csv" --out "$EVIDENCE/mapped") 2>&1 | tee "$EVIDENCE/log.mapping"
+cp "$EVIDENCE/mapped/qEM" "$WORK/case/0/qEM"
+(cd "$WORK/case" && reactiveLCOFoamV11) 2>&1 | tee "$EVIDENCE/log.solver"
+(cd "$ROOT" && python3 -m v11.openfoam.check_evidence "$EVIDENCE") 2>&1 | tee "$EVIDENCE/log.verification"
+echo 'Complete: OpenFOAM simulation ran; check numerical vs empirical validation separately' | tee "$EVIDENCE/VERIFIED.txt"

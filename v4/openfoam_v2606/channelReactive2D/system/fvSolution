@@ -1,0 +1,13 @@
+FoamFile
+{
+  version 2.0;
+  format ascii;
+  class dictionary;
+  object fvSolution;
+}
+solvers
+{
+  p { solver PCG; preconditioner DIC; tolerance 1e-8; relTol 0; }
+  "(U|H2|H2O|Tg|Ts|X)" { solver PBiCGStab; preconditioner DILU; tolerance 1e-9; relTol 0; }
+}
+PISO { nCorrectors 2; nNonOrthogonalCorrectors 0; pRefCell 0; pRefValue 0; }

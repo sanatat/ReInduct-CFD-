@@ -1,0 +1,12 @@
+FoamFile { version 2.0; format ascii; class volScalarField; object Li2O; }
+dimensions [0 -3 0 0 1 0 0];
+internalField uniform 0.0;
+boundaryField
+{
+ inlet { type zeroGradient; }
+ outlet { type zeroGradient; }
+ innerWall { type zeroGradient; }
+ outerWall { type zeroGradient; }
+ front { type wedge; }
+ back { type wedge; }
+}

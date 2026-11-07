@@ -1,0 +1,27 @@
+FoamFile {version 2.0; format ascii; class dictionary; object controlDict;}
+application reactiveFixedBedFoamV7;
+startFrom startTime;
+startTime 0;
+stopAt endTime;
+endTime 0.08;
+deltaT 0.002;
+writeControl timeStep;
+writeInterval 10;
+purgeWrite 0;
+writeFormat ascii;
+writePrecision 9;
+runTimeModifiable false;
+functions
+{
+  solverInfo
+  {
+    type solverInfo;
+    libs ("libutilityFunctionObjects.so");
+    fields (U p H2 H2O Tg Ts X);
+    writeResidualFields yes;
+    executeControl timeStep;
+    executeInterval 1;
+    writeControl timeStep;
+    writeInterval 10;
+  }
+}

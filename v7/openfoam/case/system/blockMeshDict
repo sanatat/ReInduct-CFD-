@@ -1,0 +1,27 @@
+FoamFile {version 2.0; format ascii; class dictionary; object blockMeshDict;}
+scale 1;
+// 4 degree sector in an annular fixed bed, around Z axis.
+// r in [5,25] mm, z in [40,100] mm. Angle = +-2 degrees.
+vertices
+(
+(0.004996954 -0.000174497 0.040)
+(0.024984771 -0.000872487 0.040)
+(0.024984771 0.000872487 0.040)
+(0.004996954 0.000174497 0.040)
+(0.004996954 -0.000174497 0.100)
+(0.024984771 -0.000872487 0.100)
+(0.024984771 0.000872487 0.100)
+(0.004996954 0.000174497 0.100)
+);
+blocks (hex (0 1 2 3 4 5 6 7) (12 1 48) simpleGrading (1 1 1));
+edges ();
+boundary
+(
+inlet {type patch; faces ((0 3 2 1));}
+outlet {type patch; faces ((4 5 6 7));}
+innerWall {type wall; faces ((0 4 7 3));}
+outerWall {type wall; faces ((1 2 6 5));}
+front {type wedge; faces ((0 1 5 4));}
+back {type wedge; faces ((3 7 6 2));}
+);
+mergePatchPairs ();

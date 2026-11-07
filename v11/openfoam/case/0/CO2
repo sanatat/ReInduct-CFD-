@@ -1,0 +1,12 @@
+FoamFile { version 2.0; format ascii; class volScalarField; object CO2; }
+dimensions [0 -3 0 0 1 0 0];
+internalField uniform 1.36;
+boundaryField
+{
+ inlet { type fixedValue; value uniform 1.36; }
+ outlet { type zeroGradient; }
+ innerWall { type zeroGradient; }
+ outerWall { type zeroGradient; }
+ front { type wedge; }
+ back { type wedge; }
+}

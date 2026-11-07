@@ -1,0 +1,224 @@
+{
+  "version": "13.0",
+  "type": "research reduced-order finite-volume surrogate (NOT OpenFOAM CFD)",
+  "time_s": 5.0,
+  "steps": 200,
+  "config": {
+    "nz": 18,
+    "length_m": 0.06,
+    "dt_s": 0.025,
+    "duration_s": 5.0,
+    "porosity": 0.45,
+    "pressure_in_Pa": 101330.0,
+    "pressure_out_Pa": 101329.5,
+    "T_in_K": 1080.0,
+    "T_initial_K": 1080.0,
+    "T_ambient_K": 1010.0,
+    "initial_LCO_mol_m3": 2000.0,
+    "carbon_LCO_ratio": 1.8,
+    "inlet_CO2_fraction": 0.12,
+    "inlet_H2_fraction": 0.03,
+    "radical_dissociation_rate_s": 0.04,
+    "radical_recombination_m3_mol_s": 0.001,
+    "plasma_electron_power_W_m3": 4000.0,
+    "carbonate_rate_s": 8e-05,
+    "radiation_emissivity": 0.7,
+    "wall_exposure_factor": 0.15,
+    "coil_current_A_m2": 2500000.0,
+    "em_nr": 16,
+    "em_nz": 24,
+    "em_update_interval_s": 1.0,
+    "em_feedback_tolerance": 1e-07,
+    "enable_em": true,
+    "enable_solid_reactions": true,
+    "enable_radicals": true,
+    "enable_radiation": true
+  },
+  "mean_LCO_conversion": 6.783512344210596e-05,
+  "H_radical_mean_mol_m3_pore": 0.07696583447951177,
+  "max_element_balance_mol_m2": 3.801950074211469e-14,
+  "element_residual_by_species_mol_m2": {
+    "Li": 0.0,
+    "Co": 0.0,
+    "C": -2.153745931599005e-14,
+    "O": -3.801950074211469e-14,
+    "N": -3.122502256758253e-17,
+    "H": 1.6263032587282567e-18
+  },
+  "relative_energy_ledger_error": 1.913942534528025e-16,
+  "max_implicit_pressure_closure_relative": 2.9772934571975357e-10,
+  "max_advective_CFL": 0.06944560618300118,
+  "max_pressure_energy_Picard_iterations": 16,
+  "max_end_step_EOS_residual_Pa": 2.9427363188005984e-05,
+  "max_EM_feedback_iterations_per_refresh": 4,
+  "max_EM_feedback_relative_residual": 4.1608342078408445e-08,
+  "min_pressure_Pa": 101329.52408486755,
+  "max_pressure_Pa": 101329.98755342548,
+  "end_pressure_profile_Pa": [
+    101329.98716086955,
+    101329.96149709445,
+    101329.93577630704,
+    101329.90999162952,
+    101329.88409909647,
+    101329.8580402191,
+    101329.83173959442,
+    101329.80509072548,
+    101329.77805333727,
+    101329.75054143916,
+    101329.72258424346,
+    101329.69425842282,
+    101329.66567725949,
+    101329.63704677524,
+    101329.60846879309,
+    101329.58007152342,
+    101329.55194776088,
+    101329.5240875688
+  ],
+  "electromagnetic_updates": [
+    {
+      "time_s": 0.0,
+      "annulus_EM_power_W": 53.946905577490824,
+      "mapped_CFD_power_W": 53.94690557749082,
+      "relative_power_error": 1.3171149079894063e-16,
+      "em_algebraic_residual": 8.909397095355182e-15,
+      "max_q_W_m3": 565693.479743066,
+      "feedback_iterations": 4,
+      "feedback_relative_power_density_error": 4.1608342078408445e-08,
+      "feedback_temperature_change_K": 0.009682207098649087
+    },
+    {
+      "time_s": 1.0,
+      "annulus_EM_power_W": 53.92534040148328,
+      "mapped_CFD_power_W": 53.92534040148328,
+      "relative_power_error": 0.0,
+      "em_algebraic_residual": 9.009319525613837e-15,
+      "max_q_W_m3": 565414.9833941835,
+      "feedback_iterations": 4,
+      "feedback_relative_power_density_error": 4.144269022394034e-08,
+      "feedback_temperature_change_K": 0.00964751052288193
+    },
+    {
+      "time_s": 2.0,
+      "annulus_EM_power_W": 53.90385033609725,
+      "mapped_CFD_power_W": 53.90385033609724,
+      "relative_power_error": 1.3181669423051923e-16,
+      "em_algebraic_residual": 9.443774153397759e-15,
+      "max_q_W_m3": 565137.747535698,
+      "feedback_iterations": 4,
+      "feedback_relative_power_density_error": 4.127338103949777e-08,
+      "feedback_temperature_change_K": 0.009612184765501297
+    },
+    {
+      "time_s": 3.0,
+      "annulus_EM_power_W": 53.88243900479773,
+      "mapped_CFD_power_W": 53.88243900479772,
+      "relative_power_error": 2.6373814878603878e-16,
+      "em_algebraic_residual": 1.0828844432845905e-14,
+      "max_q_W_m3": 564861.8077246472,
+      "feedback_iterations": 4,
+      "feedback_relative_power_density_error": 4.109838403721704e-08,
+      "feedback_temperature_change_K": 0.009575757452694234
+    },
+    {
+      "time_s": 4.0,
+      "annulus_EM_power_W": 53.86110945896792,
+      "mapped_CFD_power_W": 53.86110945896792,
+      "relative_power_error": 0.0,
+      "em_algebraic_residual": 1.0038042343014898e-14,
+      "max_q_W_m3": 564587.2217286289,
+      "feedback_iterations": 4,
+      "feedback_relative_power_density_error": 4.091491126786157e-08,
+      "feedback_temperature_change_K": 0.009537500329543036
+    }
+  ],
+  "history": [
+    {
+      "time_s": 0.025,
+      "Tsolid_mean_K": 1080.0075703468185,
+      "LCO_conversion": 3.3601794480198066e-07,
+      "H_radical_mean_mol_m3_pore": 0.0006770665409155241,
+      "p_mean_Pa": 101329.75354076012
+    },
+    {
+      "time_s": 0.525,
+      "Tsolid_mean_K": 1080.1589213691286,
+      "LCO_conversion": 7.063029719756031e-06,
+      "H_radical_mean_mol_m3_pore": 0.013513490437507391,
+      "p_mean_Pa": 101329.74998871222
+    },
+    {
+      "time_s": 1.0250000000000001,
+      "Tsolid_mean_K": 1080.3101541640783,
+      "LCO_conversion": 1.3802721824829334e-05,
+      "H_radical_mean_mol_m3_pore": 0.025057865345496345,
+      "p_mean_Pa": 101329.75093432993
+    },
+    {
+      "time_s": 1.5250000000000001,
+      "Tsolid_mean_K": 1080.4611774725781,
+      "LCO_conversion": 2.0555101552077737e-05,
+      "H_radical_mean_mol_m3_pore": 0.035367387939367424,
+      "p_mean_Pa": 101329.7525935337
+    },
+    {
+      "time_s": 2.025,
+      "Tsolid_mean_K": 1080.61206453998,
+      "LCO_conversion": 2.7320175765011e-05,
+      "H_radical_mean_mol_m3_pore": 0.04449342988994646,
+      "p_mean_Pa": 101329.75428038326
+    },
+    {
+      "time_s": 2.5250000000000004,
+      "Tsolid_mean_K": 1080.7627263760833,
+      "LCO_conversion": 3.409795021713791e-05,
+      "H_radical_mean_mol_m3_pore": 0.05248510252417633,
+      "p_mean_Pa": 101329.75582522416
+    },
+    {
+      "time_s": 3.0250000000000004,
+      "Tsolid_mean_K": 1080.913237692121,
+      "LCO_conversion": 4.088843038174694e-05,
+      "H_radical_mean_mol_m3_pore": 0.05938987717290013,
+      "p_mean_Pa": 101329.75721498128
+    },
+    {
+      "time_s": 3.5250000000000004,
+      "Tsolid_mean_K": 1081.063511344215,
+      "LCO_conversion": 4.7691620755574426e-05,
+      "H_radical_mean_mol_m3_pore": 0.06525403383309153,
+      "p_mean_Pa": 101329.75843181642
+    },
+    {
+      "time_s": 4.025,
+      "Tsolid_mean_K": 1081.213623123257,
+      "LCO_conversion": 5.4507525670488555e-05,
+      "H_radical_mean_mol_m3_pore": 0.07012554870605724,
+      "p_mean_Pa": 101329.75951995222
+    },
+    {
+      "time_s": 4.525,
+      "Tsolid_mean_K": 1081.3634874348693,
+      "LCO_conversion": 6.13361485866104e-05,
+      "H_radical_mean_mol_m3_pore": 0.07405446685876843,
+      "p_mean_Pa": 101329.76019087758
+    },
+    {
+      "time_s": 5.0,
+      "Tsolid_mean_K": 1081.5057044752716,
+      "LCO_conversion": 6.783512344210596e-05,
+      "H_radical_mean_mol_m3_pore": 0.07696583447951177,
+      "p_mean_Pa": 101329.76034070332
+    }
+  ],
+  "limitations": [
+    "1D porous low-Mach / Ergun, not Navier-Stokes",
+    "pressure and gas sensible enthalpy Picard corrected using NIST Shomate Cp; reaction formation enthalpies still omitted",
+    "Solid reaction formation enthalpies deliberately omitted: not thermochemically calibrated",
+    "Radical dissociation/recombination illustrative: no electron Boltzmann or sheath physics",
+    "EM heat feedback converged only on refresh steps, gas/solid sources lagged; no full monolithic MHD coupling",
+    "No OpenFOAM runtime verification",
+    "No independent reactor experimental validation"
+  ],
+  "verified_independent_reactor_data": false,
+  "verified_openfoam": false
+}

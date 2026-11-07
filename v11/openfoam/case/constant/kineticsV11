@@ -1,0 +1,8 @@
+FoamFile {version 2.0; format ascii; class dictionary; object kineticsV11;}
+// From Nuraeni et al. 2023 Tables II and III, Arrhenius fits; unvalidated reactor transfer.
+A1_per_min 584.48377763365;
+Ea1_J_mol 121167.45180686;
+A2_per_min 19.794878001299;
+Ea2_J_mol 95278.567639164;
+// Approximate carbonate pathway; NOT experimentally calibrated.
+k3_s 8e-5;

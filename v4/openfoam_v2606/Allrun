@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Requires a functioning OpenCFD v2606 installation, wmake, and sourced bashrc.
+set -euo pipefail
+self="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+for bin in blockMesh checkMesh wmake; do
+  command -v "$bin" >/dev/null || { echo "OPENFOAM_NOT_INSTALLED: Missing $bin" >&2; exit 2; }
+done
+(cd "$self/reactiveFixedBedFoam" && wmake > "$self/log.wmake" 2>&1) || { cat "$self/log.wmake"; exit 3; }
+command -v reactiveFixedBedFoam >/dev/null || { echo "Compiled solver not found in PATH" >&2; exit 4; }
+cd "$self/channelReactive2D"
+blockMesh > log.blockMesh 2>&1
+checkMesh > log.checkMesh 2>&1
+reactiveFixedBedFoam > log.solver 2>&1 || { tail -100 log.solver; exit 5; }
+echo 'SUCCESS: check log.solver and outputs; run mesh/time-step tests before scientific use.'

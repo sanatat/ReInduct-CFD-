@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Full OpenFOAM 2606 runtime validation: fail closed, archive all logs.
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$HERE/../.." && pwd)"
+CASE="$HERE/case"
+LOG="$ROOT/v7/results/openfoam_runtime"
+mkdir -p "$LOG"
+for exe in wmake blockMesh checkMesh; do
+  if ! command -v "$exe" >/dev/null 2>&1; then
+    echo "ERROR: $exe unavailable; runtime NOT VERIFIED" | tee "$LOG/ENVIRONMENT_BLOCKED.txt"
+    exit 2
+  fi
+done
+for prog in python3; do command -v "$prog"; done
+{
+  echo "WM_PROJECT_VERSION=${WM_PROJECT_VERSION:-unknown}"
+  echo "WM_PROJECT_DIR=${WM_PROJECT_DIR:-unknown}"
+  date -u '+%Y-%m-%dT%H:%M:%SZ'
+} > "$LOG/environment.txt"
+(
+ cd "$HERE/solver"
+ wmake 2>&1 | tee "$LOG/log.wmake_solver"
+)
+(
+ cd "$HERE/cellGeometry"
+ wmake 2>&1 | tee "$LOG/log.wmake_geometry"
+)
+# An unverified case is not a successful case. Reconstruct from scratch.
+rm -rf "$CASE/constant/polyMesh" "$CASE/postProcessing"
+find "$CASE" -mindepth 1 -maxdepth 1 -type d -regex '.*/[0-9.]*' ! -name 0 -exec rm -rf {} +
+(
+ cd "$CASE"
+ blockMesh 2>&1 | tee "$LOG/log.blockMesh"
+ checkMesh -allGeometry -allTopology 2>&1 | tee "$LOG/log.checkMesh"
+ exportCellGeometry 2>&1 | tee "$LOG/log.geometry"
+)
+(
+ cd "$ROOT"
+ python3 -m v7.mapping --cell-csv "$CASE/constant/cell_geometry.csv" --out "$LOG/mapped" 2>&1 | tee "$LOG/log.mapping"
+)
+cp "$LOG/mapped/qEM" "$CASE/0/qEM"
+(
+ cd "$CASE"
+ reactiveFixedBedFoamV7 2>&1 | tee "$LOG/log.solver"
+)
+if ! grep -Eq '^End\s*$' "$LOG/log.solver"; then
+ echo 'ERROR: solver did not complete normally' >&2; exit 3
+fi
+python3 "$HERE/check_log.py" "$LOG" "$CASE"
+echo 'ALL OPENFOAM RUNTIME CHECKS PASSED' | tee "$LOG/VERIFIED.txt"

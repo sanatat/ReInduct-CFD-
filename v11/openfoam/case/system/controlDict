@@ -1,0 +1,27 @@
+FoamFile {version 2.0; format ascii; class dictionary; object controlDict;}
+application reactiveLCOFoamV11;
+startFrom startTime;
+startTime 0;
+stopAt endTime;
+endTime 0.02;
+deltaT 0.001;
+writeControl timeStep;
+writeInterval 10;
+purgeWrite 0;
+writeFormat ascii;
+writePrecision 9;
+runTimeModifiable false;
+functions
+{
+  solverInfo
+  {
+    type solverInfo;
+    libs ("libutilityFunctionObjects.so");
+    fields (U p CO CO2 N2 LCO Carbon Tg Ts);
+    writeResidualFields yes;
+    executeControl timeStep;
+    executeInterval 1;
+    writeControl timeStep;
+    writeInterval 10;
+  }
+}

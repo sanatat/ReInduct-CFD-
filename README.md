@@ -1,5 +1,3 @@
-> **Upload status:** documentation is available; source code and numerical tests are not yet pushed to this GitHub repository. Do not interpret this as a complete software release.
-
 # ReInduct-CFD | Reactive battery-recycling modelling research portfolio
 
 [![Numerical verification](https://img.shields.io/badge/tests-153%20passed-brightgreen)](docs/REPRODUCIBILITY.md)

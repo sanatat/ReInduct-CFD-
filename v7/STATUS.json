@@ -1,0 +1,16 @@
+{
+  "release": "v7",
+  "local_python_tests_passed": 58,
+  "independent_cpp17_smoke_test_passed": true,
+  "openfoam_runtime_executed": false,
+  "openfoam_runtime_blocker": "wmake/blockMesh unavailable in provided Debian 13 environment; outbound DNS unavailable",
+  "openfoam_candidate_solver_compilation": "not attempted successfully",
+  "actual_foam_mesh_mapping_completed": false,
+  "synthetic_wedge_mapping_verified": true,
+  "em_source_power_conservation": true,
+  "experimental_kinetics_data_points": 19,
+  "kinetics_held_out_temperature_C": 800,
+  "kinetics_holdout_800C_MAE_um_s": {"arrhenius":0.6343976312720302,"PCHIP":0.5760576735308782},
+  "independent_lab_reactor_validation": false,
+  "full_multiphase_plasma_mhd_model": false
+}

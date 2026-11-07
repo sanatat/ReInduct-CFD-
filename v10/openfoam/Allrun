@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Verified only when an actual OpenFOAM.com v2606 environment is activated.
+# Safeguards: source case remains UNCHANGED; all generated files under v10/results.
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+LOG="$ROOT/v10/results/openfoam_runtime"
+WORK="$LOG/work"
+mkdir -p "$LOG"
+printf '%s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" > "$LOG/attempt_utc.txt"
+for exe in wmake blockMesh checkMesh; do
+  if ! command -v "$exe" >/dev/null 2>&1; then
+    printf 'OPENFOAM_NOT_VERIFIED: missing executable %s\n' "$exe" | tee "$LOG/BLOCKED.txt" >&2
+    exit 2
+  fi
+done
+if [[ "${WM_PROJECT_VERSION:-}" != "v2606" && "${WM_PROJECT_VERSION:-}" != "2606" ]]; then
+  printf 'OPENFOAM_NOT_VERIFIED: expected OpenFOAM.com v2606, actual %s\n' "${WM_PROJECT_VERSION:-unset}" | tee "$LOG/BLOCKED.txt" >&2
+  exit 2
+fi
+# Copy a clean untouched reference case; no mutation of checked-in directory.
+rm -rf "$WORK"
+mkdir -p "$WORK"
+cp -a "$ROOT/v7/openfoam/." "$WORK/"
+{
+ echo "WM_PROJECT_VERSION=$WM_PROJECT_VERSION"
+ echo "WM_PROJECT_DIR=${WM_PROJECT_DIR:-unset}"
+ echo 'OpenFOAM run directory isolated from tracked source case'
+} > "$LOG/environment.txt"
+( cd "$WORK/solver" && wmake ) 2>&1 | tee "$LOG/log.wmake_solver"
+( cd "$WORK/cellGeometry" && wmake ) 2>&1 | tee "$LOG/log.wmake_geometry"
+( cd "$WORK/case" && blockMesh ) 2>&1 | tee "$LOG/log.blockMesh"
+( cd "$WORK/case" && checkMesh -allGeometry -allTopology ) 2>&1 | tee "$LOG/log.checkMesh"
+( cd "$WORK/case" && exportCellGeometry ) 2>&1 | tee "$LOG/log.geometry"
+( cd "$ROOT" && python3 -m v7.mapping --cell-csv "$WORK/case/constant/cell_geometry.csv" --out "$LOG/mapped" ) 2>&1 | tee "$LOG/log.mapping"
+cp "$LOG/mapped/qEM" "$WORK/case/0/qEM"
+( cd "$WORK/case" && reactiveFixedBedFoamV7 ) 2>&1 | tee "$LOG/log.solver"
+( cd "$ROOT" && python3 v7/openfoam/check_log.py "$LOG" "$WORK/case" ) | tee "$LOG/log.check_result"
+# Verify physically plausible finite time-series observables from real solver output.
+( cd "$ROOT" && python3 -m v10.openfoam.postcheck "$LOG" ) | tee "$LOG/log.postcheck"
+if [[ ! -f "$LOG/VERIFIED.txt" ]]; then echo 'All checks completed for the first time' > "$LOG/VERIFIED.txt"; fi
+printf '%s\n' 'OPENFOAM_RUNTIME_VERIFIED: inspect evidence before describing validated physics'

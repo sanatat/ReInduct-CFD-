@@ -1,0 +1,15 @@
+FoamFile {version 2.0; format ascii; class dictionary; object fvSolution;}
+solvers
+{
+ "(U|CO|CO2|N2|LCO|Carbon|Li2O|CoO|CoMetal|Li2CO3|Tg|Ts)"
+ {solver smoothSolver; smoother symGaussSeidel; tolerance 1e-09; relTol 0.01;}
+ p {solver GAMG; tolerance 1e-09; relTol 0.01; smoother GaussSeidel;}
+}
+PIMPLE
+{
+ nOuterCorrectors 3;
+ residualControl {p 1e-7; U 1e-7; }
+ nCorrectors 2;
+ nNonOrthogonalCorrectors 0;
+ momentumPredictor yes;
+}

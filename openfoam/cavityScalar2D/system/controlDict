@@ -1,0 +1,32 @@
+FoamFile { version 2.0; format ascii; class dictionary; object controlDict; }
+application icoFoam;
+startFrom startTime;
+startTime 0;
+stopAt endTime;
+endTime 0.5;
+deltaT 0.001;
+writeControl timeStep;
+writeInterval 100;
+purgeWrite 0;
+writeFormat ascii;
+writePrecision 8;
+runTimeModifiable true;
+
+// Supported in OpenCFD/OpenFOAM.com versions with scalarTransport function object.
+// This is PASSIVE transport only: no reaction and no solid phase.
+functions
+{
+  passiveH2
+  {
+    type scalarTransport;
+    libs ("libsolverFunctionObjects.so");
+    field H2;
+    phi phi;
+    D 1e-5;
+    schemesField H2;
+    resetOnStartUp no;
+    executeControl timeStep;
+    executeInterval 1;
+    writeControl writeTime;
+  }
+}

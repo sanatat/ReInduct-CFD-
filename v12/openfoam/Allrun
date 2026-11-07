@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$ROOT"
+python3 -m v12.openfoam.case_lint
+if ! command -v wmake >/dev/null || ! command -v blockMesh >/dev/null; then
+    echo 'BLOCKED: OpenFOAM wmake/blockMesh missing; static preflight is NOT a runtime result.' >&2
+    exit 2
+fi
+# This is a legacy/incompressible OpenFOAM v11 *smoke test* only.
+bash v11/openfoam/Allrun

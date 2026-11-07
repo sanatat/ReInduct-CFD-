@@ -1,0 +1,31 @@
+# Python / test artifacts
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.coverage
+htmlcov/
+.ruff_cache/
+.mypy_cache/
+
+# C++ / numerical / OpenFOAM generated outputs
+build/
+*.o
+*.so
+*.a
+*.out
+*.log
+*.npz
+**/results/
+**/postProcessing/
+**/processor[0-9]*/
+**/dynamicCode/
+**/log.*
+*.foam
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/
+*.swp

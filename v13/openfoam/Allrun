@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cat >&2 <<'EOF'
+NOT VERIFIED: There is no v13 OpenFOAM solver implementing the new v13
+nonlinear pressure/enthalpy equations. The inherited v11 candidate differs
+physically from v13 and must not be presented as an equivalent solver.
+To attempt the inherited v11 candidate independently on an OpenFOAM v2606
+installation, run: bash v12/openfoam/Allrun
+EOF
+exit 3

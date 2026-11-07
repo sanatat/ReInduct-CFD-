@@ -1,0 +1,3 @@
+[tool.pytest.ini_options]
+testpaths = ["v4/tests", "v5/tests", "v6/tests", "v7/tests", "v8/tests", "v9/tests", "v10/tests", "v11/tests", "v12/tests", "v13/tests"]
+addopts = "-ra"

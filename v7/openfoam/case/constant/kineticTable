@@ -1,0 +1,14 @@
+FoamFile
+{
+ version 2.0;
+ format ascii;
+ class dictionary;
+ object kineticTable;
+}
+// Table III Hidayat et al. 2009: interpolated pure-H2-equivalent initial Ni layer growth
+// Rates [um/s]; temperatures [C]. Must not extrapolate to other temperatures.
+temperatureC (500 600 675 800 900 1000);
+rateUmPerSAtYH2One (0.61 1.859919644 3.876030023 2.744874796 3.443231898 4.855538433);
+reactiveAreaPerBulkVolume 2.0; // [m2/m3bulk], illustrative
+NiProductLayerMolarDensity 151771.75; // [mol/m3 Ni metal layer]; correct for product porosity
+NiProductLayerPorosity 0.0; // illustrative dense Ni layer, not measured

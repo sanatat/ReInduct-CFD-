@@ -1,0 +1,46 @@
+name: Numerical verification (not OpenFOAM)
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Python + C++17 research checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      MPLBACKEND: Agg
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      PYTHONHASHSEED: '0'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install C++ toolchain and Python requirements
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ make
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: Run numerical verification (no OpenFOAM)
+        run: make verify
+      - name: Upload reproducible numerical evidence
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reduced-model-evidence-NOT-OpenFOAM
+          path: |
+            v13/results/final_5s/evidence.json
+            v13/results/EVIDENCE_MANIFEST.json
+            v13/results/gas_shomate_cpp.csv
+          if-no-files-found: error
